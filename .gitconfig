@@ -1,0 +1,6 @@
+[user]
+	name = shonakam
+	email = g3tsuzumi@gmail.com
+[core]
+	precomposeunicode = true
+	quotepath = false
