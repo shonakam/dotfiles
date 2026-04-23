@@ -1,0 +1,8 @@
+if [[ -z "$1" || "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: mkcd <directory_name>"
+    echo "Description: Create a directory and move into it immediately."
+    echo "Example: mkcd src/main/java"
+    return 0
+fi
+
+mkdir -p "$1" && cd "$1"

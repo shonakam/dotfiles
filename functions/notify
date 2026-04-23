@@ -1,0 +1,12 @@
+if [[ -z "$1" || "$1" == "--help" || "$1" == "-h" ]]; then
+    echo "Usage: notify <message> [title]"
+    echo "Description: Display a macOS desktop notification from the terminal."
+    echo "Example: notify 'Build completed!'"
+    echo "         notify 'Process failed' 'Error'"
+    return 0
+fi
+
+local msg="$1"
+local title="${2:-Terminal}"
+
+osascript -e "display notification \"$msg\" with title \"$title\""

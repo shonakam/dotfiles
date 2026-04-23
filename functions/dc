@@ -1,0 +1,29 @@
+# -----------------------------------------------------------------------------
+# Caution: This function conflicts with the standard 'dc' command (calculator).
+# If you need to use the original dc, use '/usr/bin/dc'.
+# -----------------------------------------------------------------------------
+dc()
+{
+  if ! docker info >/dev/null 2>&1; then
+    echo "Docker is not running. Starting Docker Desktop..."
+    open -a Docker
+    local counter=0
+    while ! docker info >/dev/null 2>&1; do
+      if [ $counter -gt 30 ]; then
+        echo "Docker took too long to start."
+        return 1
+      fi
+      sleep 2
+      ((counter+=2))
+      echo "Waiting for Docker to be ready..."
+    done
+  fi
+
+  if [[ "$1" == "re" ]]; then
+    docker compose down && docker compose up -d --build
+  elif [[ $# -eq 0 ]]; then
+    docker compose
+  else
+    docker compose "$@"
+  fi
+}

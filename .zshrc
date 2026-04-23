@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="crcandy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -103,3 +103,87 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# enable asdf
+# . "$(brew --prefix asdf)/libexec/asdf.sh"
+
+
+# JAVA
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-19.0.1.jdk/Contents/Home
+# export PATH="$JAVA_HOME/bin:$PATH"
+# export PATH="/Applications/Android Studio.app/Contents/jre/Contents/Home/bin:$PATH"
+
+# RUBY
+export RBENV_ROOT="$HOME/.rbenv"
+export PATH="$RBENV_ROOT/bin:$PATH"
+eval "$(rbenv init -)"
+
+# .zshrcの末尾に追記
+
+# nvm config
+export NVM_DIR="$HOME/.nvm"
+[ -s "$(brew --prefix nvm)/nvm.sh" ] && \. "$(brew --prefix nvm)/nvm.sh"
+[ -s "$(brew --prefix nvm)/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix nvm)/etc/bash_completion.d/nvm"
+
+# export PATH="$HOME/.jenv/bin:$PATH"
+# eval "$(jenv init -)"
+
+export PATH="/opt/homebrew/opt/mysql@8.0/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@14/bin:$PATH"
+
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+eval "$(goenv init -)"
+export PATH="$GOROOT/bin:$PATH"
+export PATH="$PATH:$GOPATH/bin"
+eval "$(goenv init -)"
+
+
+# 1. adb コマンド用
+# 2. emulator コマンド用
+# 3. sdkmanager コマンド用
+export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools:$HOME/Library/Android/sdk/emulator:$HOME/Library/Android/sdk/cmdline-tools/latest/bin"
+export PATH="/Applications/Android\ Studio.app/Contents/jre/Contents/Home/bin:$PATH"
+
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
+
+# Rust (Cargo)
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+# bun completions
+[ -s "/Users/systemi/.bun/_bun" ] && source "/Users/systemi/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# show system info
+fastfetch
+export PATH="/opt/homebrew/bin:$PATH"
+
+export PATH=$PATH:$(go env GOPATH)/bin
+
+# --- Zsh Custom Functions Setup START ---
+fpath=(/Users/systemi/.zsh/functions/functions $fpath)
+
+# Load all functions in the directory automatically
+if [ -d "/Users/systemi/.zsh/functions/functions" ]; then
+    for func in "/Users/systemi/.zsh/functions/functions"/*(:t); do
+        autoload -Uz "$func"
+    done
+fi
+# --- Zsh Custom Functions Setup END ---
+# --- Zsh Custom Functions Setup START ---
+fpath=(/Users/systemi/workspace/dotfiles/functions $fpath)
+
+# Load all functions in the directory automatically
+if [ -d "/Users/systemi/workspace/dotfiles/functions" ]; then
+    for func in "/Users/systemi/workspace/dotfiles/functions"/*(:t); do
+        unfunction "$func" 2>/dev/null
+        autoload -Uz "$func"
+    done
+fi
+# --- Zsh Custom Functions Setup END ---
